@@ -8,6 +8,7 @@ var cheerio = require('cheerio');
 var request = require('request');
 
 // get rid of this later
+var mongojs = require('mongojs');
 
 var app = express();
 
@@ -17,7 +18,10 @@ var Schema = mongoose.Schema;
 
 var databaseURL = "mongoScraper";
 var collections = ["scraperData"];
-var db = 
+var db = mongojs(databaseURL, collections);
+db.on("error", function(error) {
+    throw error;
+});
 
 request("http://www.bleacherreport.com", function(err, response, html) {
     if (err) throw err;
@@ -31,14 +35,17 @@ request("http://www.bleacherreport.com", function(err, response, html) {
 
         var link = $(element).children('.articleContent').children('a').attr('href');
 
-
-        result.push({
+        db.scraperData.insert({
             title: title,
             link: link
         });
-    });
+        /*result.push({
+            title: title,
+            link: link
+        });*/
+    });/*
         console.log(result);
-        console.log(result.length);
+        console.log(result.length);*/
 });
 
 app.listen(3000, function() {
