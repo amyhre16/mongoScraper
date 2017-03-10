@@ -1,0 +1,27 @@
+{
+  "name": "mongoscraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amyhre16/mongoScraper.git"
+  },
+  "author": "Anthony Myhre",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amyhre16/mongoScraper/issues"
+  },
+  "homepage": "https://github.com/amyhre16/mongoScraper#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cheerio": "^0.22.0",
+    "express": "^4.15.2",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^4.8.6",
+    "request": "^2.81.0"
+  }
+}
