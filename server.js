@@ -7,20 +7,31 @@ var bodyParser = require('body-parser');
 var cheerio = require('cheerio');
 var request = require('request');
 
+// Set mongoose to leverage buitl in javaScript ES6 Promises
+mongoose.Promise = Promise;
+
 // get rid of this later
-var mongojs = require('mongojs');
+// var mongojs = require('mongojs');
+var Note = require('./models/Notes.js');
+var Article = require('./models/Articles.js');
 
 var app = express();
 
-// mongoose.connect('MONGODB_URI: mongodb://heroku_98p88b8p:l948hr7l47kp0aqopjtvfmluh4');
+mongoose.connect('mongodb://heroku_98p88b8p:l948hr7l47kp0aqopjtvfmluh4');
 
-var Schema = mongoose.Schema;
+/*var Schema = mongoose.Schema;
 
 var databaseURL = "mongoScraper";
-var collections = ["scraperData"];
-var db = mongojs(databaseURL, collections);
+var collections = ["scraperData"];*/
+// var db = mongojs(databaseURL, collections);
+var db = mongoose.connection;
+
 db.on("error", function(error) {
     throw error;
+});
+
+db.once("open", function() {
+    console.log("Mongoose connection successful");
 });
 
 request("http://www.bleacherreport.com", function(err, response, html) {
