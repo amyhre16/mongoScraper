@@ -31,6 +31,7 @@ module.exports = function(app) {
                     link: link
                 });
             }); // end of .each()
+            console.log(result);
         }); // end of request
     }); // end of app.get('/scrapedArticles')
 

@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var ArticleSchema = new Schema({
     title: {
@@ -19,6 +20,6 @@ var ArticleSchema = new Schema({
     ]
 });
 
-var Article = ongoose.model("Article", ArticleSchema);
+var Article = mongoose.model("Article", ArticleSchema);
 
 module.exports = Article;

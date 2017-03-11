@@ -17,7 +17,7 @@ var Article = require('./models/Articles.js');*/
 
 var app = express();
 
-mongoose.connect('mongodb://heroku_98p88b8p:l948hr7l47kp0aqopjtvfmluh4');
+mongoose.connect('mongodb://localhost:l948hr7l47kp0aqopjtvfmluh4');
 
 /*var Schema = mongoose.Schema;
 
