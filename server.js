@@ -54,10 +54,8 @@ require('./controllers/app_controller.js')(app);
         /*result.push({
             title: title,
             link: link
-        });*/
-    });/*
-        console.log(result);
-        console.log(result.length);*/
+        });
+    });
 });*/
 
 app.listen(process.env.PORT || 3000, function() {
