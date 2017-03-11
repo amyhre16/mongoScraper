@@ -12,8 +12,8 @@ mongoose.Promise = Promise;
 
 // get rid of this later
 // var mongojs = require('mongojs');
-var Note = require('./models/Notes.js');
-var Article = require('./models/Articles.js');
+/*var Note = require('./models/Notes.js');
+var Article = require('./models/Articles.js');*/
 
 var app = express();
 
@@ -34,7 +34,8 @@ db.once("open", function() {
     console.log("Mongoose connection successful");
 });
 
-request("http://www.bleacherreport.com", function(err, response, html) {
+require('./controllers/app_controller.js')(app);
+/*request("http://www.bleacherreport.com", function(err, response, html) {
     if (err) throw err;
 
     var $ = cheerio.load(html);
@@ -57,7 +58,7 @@ request("http://www.bleacherreport.com", function(err, response, html) {
     });/*
         console.log(result);
         console.log(result.length);*/
-});
+});*/
 
 app.listen(process.env.PORT || 3000, function() {
     console.log("App is listening on port 3000");
