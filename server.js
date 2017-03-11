@@ -59,6 +59,6 @@ request("http://www.bleacherreport.com", function(err, response, html) {
         console.log(result.length);*/
 });
 
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
     console.log("App is listening on port 3000");
 });
