@@ -17,7 +17,8 @@ var Article = require('./models/Articles.js');*/
 
 var app = express();
 
-mongoose.connect('mongodb://localhost:l948hr7l47kp0aqopjtvfmluh4');
+mongoose.connect('mongodb://localhost/l948hr7l47kp0aqopjtvfmluh4');
+// mongoose.connect('mongodb://heroku_98p88b8p/l948hr7l47kp0aqopjtvfmluh4');
 
 app.use(express.static(__dirname + "/public"));
 
@@ -39,7 +40,7 @@ db.once("open", function() {
     console.log("Mongoose connection successful");
 });
 
-require('./controllers/app_controller.js')(app);
+require('./controllers/app_controller.js')(app, db);
 
 app.listen(process.env.PORT || 3000, function() {
     console.log("App is listening on port 3000");
