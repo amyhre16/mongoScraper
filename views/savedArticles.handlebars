@@ -1,0 +1,38 @@
+<nav class="navbar navbar-default" style="margin: 0;">
+    <div class="container-fluid">
+        <div class="navbar-header navbar-left">
+            <h1>BleacherReport MongoScraper</h1>
+        </div>
+        <div class="navbar-header navbar-right">
+            <ul style="display: inline">
+                <li class="btn btn-default">
+                    <a href="/">Home</a>
+                </li>
+                <li class="btn btn-default">
+                    <a href="/savedArticles">Saved Articles</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="jumbotron" style="text-align: center;">
+    <h1>Saved Articles</h1>
+    <h3>Your Saved Articles</h3>
+</div>
+<div class="container">
+    <div id="articleContainer">
+        {{#each article}}
+        <div class="articleTitle panel panel-default" id={{this._id}}>
+            <div class="panel-body">
+                <a href={{this.link}} target="_blank">
+                    <h2>{{this.title}}</h2>
+                </a>
+                <div class="btn btn-success add-note">Add a note</div>
+                <div class="btn btn-danger delete-article">Delete this article</div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+<script src='/assets/js/home.js'></script>

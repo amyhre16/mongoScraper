@@ -38,6 +38,11 @@ module.exports = function(app, db) {
 
     app.get('/savedArticles', function(req, res) {
         // do the things
+        Article.find({}, function(err, doc) {
+            console.log("DOCS");
+            console.log(doc);
+            res.render('savedArticles', {article: doc});
+        });
     });
 
     app.get('/articleNotes', function(req, res) {
@@ -50,7 +55,7 @@ module.exports = function(app, db) {
 
         newArticle.save(function(err, doc) {
             if (err) throw err;
-
+            res.json(doc);
         });
         console.log();
         console.log(newArticle);
