@@ -18,9 +18,34 @@ $(document).ready(function(){
                 var button = $('<div>');
                 button.addClass('btn btn-primary save-article');
                 button.text("Save article");
+                
+                /*
+                    <a href="link">
+                        <h2>Title Text</h2>
+                    </a>
+                */
+                link.append(title);  
+                
+                /*
+                    <div class="panel-body">
+                        <a href="link">
+                            <h2>Title Text</h2>
+                        </a>
+                        <div class="btn btn-primary save-article">Save article</div>
+                    </div>
+                */
+                panelBody.append(link).append(button); 
 
-                link.append(title);
-                panelBody.append(link).append(button);
+                /*
+                    <div class="articleTitle panel panel-default">
+                        <div class="panel-body">
+                            <a href="link">
+                                <h2>Title Text</h2>
+                            </a>
+                            <div class="btn btn-primary save-article">Save article</div>
+                        </div>
+                    </div>
+                */
                 newdiv.append(panelBody);
                 $('#articleContainer').append(newdiv);
             }
