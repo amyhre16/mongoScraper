@@ -7,7 +7,7 @@ var Note = require('./../models/Notes.js');
 var Article = require('./../models/Articles.js');
 
 
-module.exports = function(app) {
+module.exports = function(app, db) {
     app.get('/', function(req, res) {
         res.render('index');
     }); // end of app.get('/')
@@ -31,7 +31,7 @@ module.exports = function(app) {
                     link: link
                 });
             }); // end of .each()
-            console.log(result);
+            // console.log(result);
             res.json(result);
         }); // end of request
     }); // end of app.get('/scrapedArticles')
@@ -46,8 +46,15 @@ module.exports = function(app) {
 
     app.post('/saveNewArticle', function(req, res) {
         // do the things
+        var newArticle = new Article(req.body);
+
+        newArticle.save(function(err, doc) {
+            if (err) throw err;
+
+        });
         console.log();
-        console.log(req.body);
+        console.log(newArticle);
+        // console.log(req.body);
     });
     
     app.post('/deleteArticle', function(req, res) {
