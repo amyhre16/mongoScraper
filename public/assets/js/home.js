@@ -7,7 +7,7 @@ $(document).ready(function(){
 
                 var link = $('<a>');
                 link.attr('href', articles[i].link);
-                test
+
                 var title = $('<h2>');
                 title.text(articles[i].title);
 
@@ -22,7 +22,14 @@ $(document).ready(function(){
         });
     });
 
-    $(document).on('click', 'save-article', function() {
-        
+    $(document).on('click', '.save-article', function() {
+        var title = $(this).parent().find('h2').text();
+        var link = $(this).parent().children('a').attr('href');
+
+        $(this).parent().remove();
+        console.log({title: title, link: link});
+        $.post('/saveNewArticle', {title: title, link: link}).done(function(postedData) {
+            console.log(postedData);
+        });
     });
 });

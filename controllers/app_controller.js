@@ -46,6 +46,8 @@ module.exports = function(app) {
 
     app.post('/saveNewArticle', function(req, res) {
         // do the things
+        console.log();
+        console.log(req.body);
     });
     
     app.post('/deleteArticle', function(req, res) {
