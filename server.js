@@ -1,7 +1,7 @@
 'use strict';
 
 var express = require('express');
-var exphb = require('express-handlebars');
+var exphbs = require('express-handlebars');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var cheerio = require('cheerio');
@@ -19,11 +19,16 @@ var app = express();
 
 mongoose.connect('mongodb://localhost:l948hr7l47kp0aqopjtvfmluh4');
 
-/*var Schema = mongoose.Schema;
+app.use(express.static(__dirname + "/public"));
 
-var databaseURL = "mongoScraper";
-var collections = ["scraperData"];*/
-// var db = mongojs(databaseURL, collections);
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(bodyParser.text());
+app.use(bodyParser.json({ type: "application/vnd.api+json"}));
+
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
+
 var db = mongoose.connection;
 
 db.on("error", function(error) {
@@ -35,28 +40,6 @@ db.once("open", function() {
 });
 
 require('./controllers/app_controller.js')(app);
-/*request("http://www.bleacherreport.com", function(err, response, html) {
-    if (err) throw err;
-
-    var $ = cheerio.load(html);
-
-    var result = [];
-
-    $('li.articleSummary').each(function(i, element) {
-        var title = $(element).children('.articleContent').children('a').children('h3').children('.title').text();
-
-        var link = $(element).children('.articleContent').children('a').attr('href');
-
-        db.scraperData.insert({
-            title: title,
-            link: link
-        });
-        /*result.push({
-            title: title,
-            link: link
-        });
-    });
-});*/
 
 app.listen(process.env.PORT || 3000, function() {
     console.log("App is listening on port 3000");

@@ -10,7 +10,7 @@ var Article = require('./../models/Articles.js');
 module.exports = function(app) {
     app.get('/', function(req, res) {
         res.render('index');
-    }); // end of app.get('/')
+    });
 
     app.get('/scrapedArticles', function(req, res) {
         var result = [];
@@ -43,7 +43,7 @@ module.exports = function(app) {
         // do the things
     });
 
-    app.post('/saveArticle', function(req, res) {
+    app.post('/saveNewArticle', function(req, res) {
         // do the things
     });
     
