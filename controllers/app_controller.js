@@ -9,7 +9,7 @@ var Article = require('./../models/Articles.js');
 
 module.exports = function (app) {
     app.get('/', function (req, res) {
-        var doc = unsavedArticles(res);
+        unsavedArticles(res);
         // res.render('index', {article: doc});
     }); // end of app.get('/')
 
@@ -28,40 +28,22 @@ module.exports = function (app) {
 
                 var link = $(element).children('.articleContent').children('a').attr('href');
 
-                // var isNewArticle = true;
-
-                // check database to see if title already exists, if it does, set isNewArticle to true
-                Article.find({ title: title }, function (err, doc) {
-                    if (err) throw err;
-                    // console.log(doc.length);
-                    if (doc.length === 0) {
-                        // isNewArticle = false;
-                        saveArticle({ title: title, link: link });
-                        result.push({
-                            title: title,
-                            link: link
-                        });
-                        // console.log("LINE 45");
-                        // console.log(result);
-                    }
+                result.push({
+                    title: title,
+                    link: link
                 });
-
-                // if (isNewArticle) {
-                // }
             }); // end of .each()
-            
-            process.nextTick(() => {
-                // Article.insertMany(result, function (err, doc) {
-                    console.log(result);
-                    res.json(result);
-                // });
+
+            Article.insertMany(result, function (err, doc) {
+                // console.log(result);
+                unsavedArticles(res);
             });
         }); // end of request
     }); // end of app.get('/scrapedArticles')
 
     app.get('/savedArticles', function (req, res) {
         // do the things
-        Article.find({saved: true}, function (err, doc) {
+        Article.find({ saved: true }, function (err, doc) {
             console.log("DOCS");
             console.log(doc);
             res.render('savedArticles', { article: doc });
@@ -74,7 +56,7 @@ module.exports = function (app) {
 
     app.post('/saveNewArticle', function (req, res) {
         // do the things
-        var newArticle = new Article(req.body);
+        var newArticleId = new Article(req.body.id);
 
         newArticle.save(function (err, doc) {
             if (err) throw err;
@@ -82,7 +64,6 @@ module.exports = function (app) {
         });
         console.log();
         console.log(newArticle);
-        // console.log(req.body);
     });
 
     app.post('/deleteArticle', function (req, res) {
@@ -108,11 +89,10 @@ function saveArticle(scrpaedArticle) {
 };
 
 function unsavedArticles(res) {
-    var result;
     Article.find({ saved: false }, function (err, doc) {
         if (err) throw err;
-
+        console.log("RENDERING PAGE");
+        console.log(doc[0]);
         res.render('index', { article: doc })
-        // result = doc;
     });
 }
