@@ -10,11 +10,6 @@ var request = require('request');
 // Set mongoose to leverage buitl in javaScript ES6 Promises
 mongoose.Promise = Promise;
 
-// get rid of this later
-// var mongojs = require('mongojs');
-/*var Note = require('./models/Notes.js');
-var Article = require('./models/Articles.js');*/
-
 var app = express();
 
 mongoose.connect('mongodb://localhost/l948hr7l47kp0aqopjtvfmluh4');
@@ -40,7 +35,7 @@ db.once("open", function() {
     console.log("Mongoose connection successful");
 });
 
-require('./controllers/app_controller.js')(app, db);
+require('./controllers/app_controller.js')(app);
 
 app.listen(process.env.PORT || 3000, function() {
     console.log("App is listening on port 3000");
