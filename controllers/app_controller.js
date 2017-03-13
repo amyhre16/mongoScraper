@@ -80,6 +80,18 @@ module.exports = function (app) {
 
     app.post('/deleteArticle', function (req, res) {
         // do the things
+        console.log(req.body.id);
+
+        Article.remove({ _id: req.body.id }, function(err, doc) {
+            if (err) {
+                console.log(err);
+                res.send("Error");
+            }
+            else {
+                console.log(doc);
+                res.json(doc);
+            }
+        });
     });
 
     app.post('/addNote', function (req, res) {
