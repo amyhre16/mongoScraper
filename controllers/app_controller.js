@@ -35,8 +35,11 @@ module.exports = function (app) {
             }); // end of .each()
 
             Article.insertMany(result, function (err, doc) {
+            // Article.insertMany({ title: "Testing new title", link: "localhost:4040"}, function (err, doc) {
                 // console.log(result);
-                unsavedArticles(res);
+                console.log(doc);
+                res.json(doc);
+                // unsavedArticles(res);
             });
         }); // end of request
     }); // end of app.get('/scrapedArticles')
@@ -91,8 +94,8 @@ function saveArticle(scrpaedArticle) {
 function unsavedArticles(res) {
     Article.find({ saved: false }, function (err, doc) {
         if (err) throw err;
-        console.log("RENDERING PAGE");
-        console.log(doc[0]);
+        // console.log("RENDERING PAGE");
+        // console.log(doc[0]);
         res.render('index', { article: doc })
     });
 }
