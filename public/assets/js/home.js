@@ -50,8 +50,11 @@ $(document).ready(function () {
                         </div>
                     */
                     newdiv.append(panelBody);
-                    $('#articleContainer').append(newdiv);
+                    $('#articleContainer').prepend(newdiv);
                 }
+            }
+            else {
+                $('#noNewArticlesModal').modal('toggle');
             }
         });
     });

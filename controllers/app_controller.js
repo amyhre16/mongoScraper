@@ -17,7 +17,7 @@ module.exports = function (app) {
         var result = [];
 
         request("http://www.bleacherreport.com", function (err, response, html) {
-            if (err) res.send("No new articles");
+            if (err) throw err;
 
             var $ = cheerio.load(html);
 
@@ -33,13 +33,20 @@ module.exports = function (app) {
                     link: link
                 });
             }); // end of .each()
-
-            Article.insertMany(result, function (err, doc) {
-            // Article.insertMany([{ title: "Testing new title", link: "localhost:4040"}, {title : "The Bracket Is Set! — Make Your Picks ✍🏽", link : "http://ble.ac/2miKyBi"}], function (err, doc) {
-                if (err) throw err;
-                console.log(doc);
-                res.json(doc);
-                // unsavedArticles(res);
+            
+            Article.insertMany(result, { ordered: false }, function (err, doc) {
+                // Article.insertMany({ title: "Testing new title", link: "localhost:4040"}, function (err, doc) {
+                // console.log(result);
+                if (err) {
+                    console.log(err);
+                    console.log(doc);
+                    res.send("No new articles");
+                }
+                else {
+                    console.log(err);
+                    console.log(doc);
+                    res.json(doc);
+                }
             });
         }); // end of request
     }); // end of app.get('/scrapedArticles')
