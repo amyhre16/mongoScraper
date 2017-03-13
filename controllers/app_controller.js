@@ -9,12 +9,12 @@ var Article = require('./../models/Articles.js');
 
 module.exports = function (app, db) {
     app.get('/', function (req, res) {
-        displayUnsavedArticles(res);
-        // res.render('index');
+        var doc = unsavedArticles(res);
+        // res.render('index', {article: doc});
     }); // end of app.get('/')
 
     app.get('/scrapedArticles', function (req, res) {
-        // var result = [];
+        var result = [];
 
         request("http://www.bleacherreport.com", function (err, response, html) {
             if (err) throw err;
@@ -27,24 +27,27 @@ module.exports = function (app, db) {
 
                 var link = $(element).children('.articleContent').children('a').attr('href');
 
-                var isNewArticle = true;
+                // var isNewArticle = true;
 
-                // check database to see if title already exists, if it does, set isNewArticle to false
+                // check database to see if title already exists, if it does, set isNewArticle to true
                 Article.find({ title: title }, function (err, doc) {
                     if (err) throw err;
-
-                    if (doc !== []) {
-                        isNewArticle = false;
+                    console.log(doc.length);
+                    if (doc.length === 0) {
+                        // isNewArticle = false;
+                        saveArticle({ title: title, link: link });
+                        result.push({
+                            title: title,
+                            link: link
+                        });
                     }
                 });
 
-                // if it's a new article, save article to database
-                if (isNewArticle) {
-                    saveArticle({ title: title, link: link });
-                }
+                // if (isNewArticle) {
+                // }
             }); // end of .each()
-            // console.log(result);
-            // displayUnsavedArticles(res);
+            console.log(result);
+            res.json(result);
         }); // end of request
     }); // end of app.get('/scrapedArticles')
 
@@ -65,7 +68,7 @@ module.exports = function (app, db) {
         // do the things
         var newArticle = new Article(req.body);
 
-        newArticle.update(function (err, doc) {
+        newArticle.save(function (err, doc) {
             if (err) throw err;
             res.json(doc);
         });
@@ -96,11 +99,12 @@ function saveArticle(scrpaedArticle) {
     });
 };
 
-
-function displayUnsavedArticles(res) {
-    Article.find({saved: false}, function (err, doc) {
+function unsavedArticles(res) {
+    var result;
+    Article.find({ saved: false }, function (err, doc) {
         if (err) throw err;
-        console.log(doc);
-        res.render('index', {article: doc});
+
+        res.render('index', { article: doc })
+        // result = doc;
     });
 }
