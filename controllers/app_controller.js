@@ -7,7 +7,7 @@ var Note = require('./../models/Notes.js');
 var Article = require('./../models/Articles.js');
 
 
-module.exports = function (app, db) {
+module.exports = function (app) {
     app.get('/', function (req, res) {
         var doc = unsavedArticles(res);
         // res.render('index', {article: doc});
@@ -23,6 +23,7 @@ module.exports = function (app, db) {
 
 
             $('li.articleSummary').each(function (i, element) {
+                // console.log(element);
                 var title = $(element).children('.articleContent').children('a').children('h3').children('.title').text();
 
                 var link = $(element).children('.articleContent').children('a').attr('href');
@@ -32,7 +33,7 @@ module.exports = function (app, db) {
                 // check database to see if title already exists, if it does, set isNewArticle to true
                 Article.find({ title: title }, function (err, doc) {
                     if (err) throw err;
-                    console.log(doc.length);
+                    // console.log(doc.length);
                     if (doc.length === 0) {
                         // isNewArticle = false;
                         saveArticle({ title: title, link: link });
@@ -40,20 +41,27 @@ module.exports = function (app, db) {
                             title: title,
                             link: link
                         });
+                        // console.log("LINE 45");
+                        // console.log(result);
                     }
                 });
 
                 // if (isNewArticle) {
                 // }
             }); // end of .each()
-            console.log(result);
-            res.json(result);
+            
+            process.nextTick(() => {
+                // Article.insertMany(result, function (err, doc) {
+                    console.log(result);
+                    res.json(result);
+                // });
+            });
         }); // end of request
     }); // end of app.get('/scrapedArticles')
 
     app.get('/savedArticles', function (req, res) {
         // do the things
-        Article.find({}, function (err, doc) {
+        Article.find({saved: true}, function (err, doc) {
             console.log("DOCS");
             console.log(doc);
             res.render('savedArticles', { article: doc });

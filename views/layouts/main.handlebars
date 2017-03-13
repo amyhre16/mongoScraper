@@ -1,27 +1,43 @@
 <!DOCTYPE html>
+
 <head>
     <title>BleacherReport MongoScraper</title>
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>
-    <script src='https://code.jquery.com/jquery-3.1.1.min.js' integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=' crossorigin='anonymous'></script>
-    {{!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>--}}
-    {{!--<script src='/assets/js/home.js'></script>--}}
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u'
+        crossorigin='anonymous'>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src='https://code.jquery.com/jquery-3.1.1.min.js' integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8='
+            crossorigin='anonymous'></script>
+            {{!--
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+                crossorigin="anonymous"></script>--}} {{!--
+                <script src='/assets/js/home.js'></script>--}}
 </head>
 <html>
-    <body>
-        {{!--<nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header navbar-left">
-                    <h1>BleacherReport MongoScraper</h1>
-                </div>
-                <div class="navbar-header navbar-right">
-                    <ul style="display: inline">
-                        <li class="btn btn-default"><a href="/">Home</a></li>
-                        <li class="btn btn-default"><a href="/savedArticles"></a> Saved Articles</li>
-                        <li class="btn btn-default" id="scrapeNewArticles">Scrape New Articles!</li>
-                    </ul>
-                </div>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" style="margin: 0">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">BleacherReport MongoScraper</a>
             </div>
-        </nav>--}}
-        {{{ body }}}
-    </body>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/savedArticles">Saved Articles</a></li>
+                </ul>
+
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+    {{{ body }}}
+</body>
+
 </html>

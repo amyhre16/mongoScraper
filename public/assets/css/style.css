@@ -1,0 +1,57 @@
+.brand-centered {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+.brand-centered .navbar-brand {
+    display: flex;
+    align-items: center;
+}
+.navbar-toggle {
+    z-index: 1;
+}
+
+
+
+
+/* CSS Transform Align Navbar Brand Text ... This could also be achieved with table / table-cells */
+.navbar-alignit .navbar-header {
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    height: 50px;
+}
+.navbar-alignit .navbar-brand {
+    top: 50%;
+    display: block;
+    position: relative;
+    height: auto;
+    transform: translate(0,-50%);
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.navbar-nav>li>.dropdown-menu {
+    z-index: 9999;
+}
+
+body {
+    font-family: "Lato";
+}
+
+.jumbotron {
+    text-align: center;
+    background-image: url("https://assets.themuse.com/uploaded/companies/893/small_logo.png?v=acc3f3bfdf001552284e1f55726e7ad9cb70b2896cff7b5a270cf5cce672605e");
+    background-position: 0% 39.5%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-top: 20px;
+    padding-bottom: 50px;
+}
+
+#jumbotronText{
+    color: white;
+}
