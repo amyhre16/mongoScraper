@@ -33,7 +33,7 @@ module.exports = function (app) {
                     link: link
                 });
             }); // end of .each()
-            
+
             Article.insertMany(result, { ordered: false }, function (err, doc) {
                 // Article.insertMany({ title: "Testing new title", link: "localhost:4040"}, function (err, doc) {
                 // console.log(result);
@@ -66,14 +66,16 @@ module.exports = function (app) {
 
     app.post('/saveNewArticle', function (req, res) {
         // do the things
-        var newArticleId = new Article(req.body.id);
+        console.log(req.body.id);
+        // var newArticleId = new Article(req.body.id);
 
-        newArticle.save(function (err, doc) {
+        Article.update({ _id: req.body.id }, { $set: { saved: true } }, function (err, doc) {
             if (err) throw err;
+            console.log(doc);
             res.json(doc);
         });
-        console.log();
-        console.log(newArticle);
+        // console.log();
+        // console.log(newArticle);
     });
 
     app.post('/deleteArticle', function (req, res) {

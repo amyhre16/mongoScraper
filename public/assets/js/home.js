@@ -64,8 +64,9 @@ $(document).ready(function () {
         // var link = $(this).parent().find('a').attr('href');
         // console.log({title: title, link: link});
         var id = $(this).parent().parent().attr('id');
+        console.log(id);
         $(this).parent().parent().remove();
-        $.post('/saveNewArticle', { _id: id }).done(function (postedData) {
+        $.post('/saveNewArticle', { id: id }).done(function (postedData) {
             console.log(postedData);
         });
     });
