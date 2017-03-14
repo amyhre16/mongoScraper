@@ -4,6 +4,7 @@ $(document).ready(function () {
         $('#articleID').empty();
         var id = $(this).parent().parent().attr('id');
         $('#save-note-btn').attr('data-note-id', id);
+        $('#article-note-container').attr('data-note-id', id);
         console.log(id);
         $.ajax({ url: '/articleNotes/' + id }).done(function (notes) {
             console.log(notes);
@@ -30,9 +31,6 @@ $(document).ready(function () {
             }
             $('#notesModal').modal('toggle');
         });
-        // $.get('/articleNotes', { id: id }, function(article) {
-        //     console.log(article);
-        // });
     });
 
     $(document).on('click', '#save-note-btn', function () {
@@ -59,12 +57,13 @@ $(document).ready(function () {
 
     $(document).on('click', '.delete-note', function () {
         var noteId = $(this).parent().attr('id');
+        var articleId = $('#article-note-container').attr('data-note-id');
         $('#article-note-container').empty();
         $('#articleID').empty();
         $('#new-note').val("");
         $('.close').click();
         console.log(noteId);
-        $.post('/deleteNote', { id: noteId }, function (response) {
+        $.post('/deleteNote', { noteid: noteId, articleid: articleId }, function (response) {
             console.log(response);
         });
     });
