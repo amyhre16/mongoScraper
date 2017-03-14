@@ -54,14 +54,27 @@ module.exports = function (app) {
     app.get('/savedArticles', function (req, res) {
         // do the things
         Article.find({ saved: true }, function (err, doc) {
-            console.log("DOCS");
-            console.log(doc);
+            // console.log("DOCS");
+            // console.log(doc);
             res.render('savedArticles', { article: doc });
         });
     });
 
-    app.get('/articleNotes', function (req, res) {
+    app.get('/articleNotes/:id', function (req, res) {
         // do the things
+        console.log(req.params.id);
+        // console.log(req.body);
+        // console.log(req.body.id);
+        Article.find({ _id: req.params.id }, function (err, doc) {
+            if (err) throw err;
+            // console.log("notes");
+            console.log(doc[0].notes);
+            Note.find({ _id: { $in: doc[0].notes } }, function (err, doc) {
+                console.log(doc);
+                res.send(doc);
+            })
+        });
+        // res.send("Hello world from the server side");
     });
 
     app.post('/saveNewArticle', function (req, res) {
@@ -82,7 +95,7 @@ module.exports = function (app) {
         // do the things
         console.log(req.body.id);
 
-        Article.remove({ _id: req.body.id }, function(err, doc) {
+        Article.remove({ _id: req.body.id }, function (err, doc) {
             if (err) {
                 console.log(err);
                 res.send("Error");
@@ -96,10 +109,23 @@ module.exports = function (app) {
 
     app.post('/addNote', function (req, res) {
         // do the things
+        console.log(req.body);
+        console.log(req.body.note);
+        var newNote = new Note({ note: req.body.note });
+
+        newNote.save(function (err, doc) {
+            if (err) throw err;
+
+            Article.findOneAndUpdate({ _id: req.body.id }, { $push: { notes: newNote } }, { new: true }, function (err, doc) {
+                if (err) throw err;
+                res.json(doc);
+            });
+        });
     });
 
     app.post('/deleteNote', function (req, res) {
         // do the things
+        console.log(req.body);
     });
 };
 
