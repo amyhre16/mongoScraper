@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var cheerio = require('cheerio');
 var request = require('request');
+var PORT = process.env.PORT || 3000
 
 // Set mongoose to leverage buitl in javaScript ES6 Promises
 mongoose.Promise = Promise;
@@ -37,6 +38,6 @@ db.once("open", function() {
 
 require('./controllers/app_controller.js')(app);
 
-app.listen(process.env.PORT || 3000, function() {
-    console.log("App is listening on port 3000");
+app.listen(PORT, function() {
+    console.log("App is listening on port " + PORT);
 });
