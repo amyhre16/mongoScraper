@@ -13,8 +13,8 @@ mongoose.Promise = Promise;
 
 var app = express();
 
-// mongoose.connect('mongodb://localhost/l948hr7l47kp0aqopjtvfmluh4');
-mongoose.connect('mongodb://heroku_98p88b8p:l948hr7l47kp0aqopjtvfmluh4@ds127300.mlab.com:27300/heroku_98p88b8p');
+mongoose.connect('mongodb://localhost/l948hr7l47kp0aqopjtvfmluh4');
+// mongoose.connect('mongodb://heroku_98p88b8p:l948hr7l47kp0aqopjtvfmluh4@ds127300.mlab.com:27300/heroku_98p88b8p');
 
 app.use(express.static(__dirname + "/public"));
 
